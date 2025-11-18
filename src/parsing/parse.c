@@ -6,7 +6,7 @@
 /*   By: aradwan <aradwan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/16 17:33:02 by aradwan           #+#    #+#             */
-/*   Updated: 2025/11/18 15:03:51 by aradwan          ###   ########.fr       */
+/*   Updated: 2025/11/18 18:29:56 by aradwan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,4 @@ void    main_parce(t_cub3d  *cub3d)
 	open_xpm(cub3d);
 	check_names(cub3d);
 	parce_colors(cub3d);
-	print_information(cub3d);
-}
+} 

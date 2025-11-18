@@ -77,10 +77,15 @@ typedef struct s_cub3d
 }t_cub3d;
 
 #define SQUARE_SIZE 64
-#define FOV (60*M_PI/180) // radian to get accepted by math library 
+#define FOV (60*M_PI/180)
 #define RES 2
 #define RADIUS 1
 #define ARROW_LEN 32 * 10
+# define KEY_W 13
+# define KEY_A 0
+# define KEY_S 1
+# define KEY_D 2
+# define KEY_ESC 53
 
 
 /* ---------clean exit------------- */
@@ -88,10 +93,6 @@ void    ft_error(char  *error,int  exitcode, t_cub3d   *cub3d);
 void    ahasna(t_cub3d   *cub3d);
 void    free_array(char **array);
 
-
-/* ---------test------------- */
-void    print_map(t_cub3d *cub3d);
-void    print_information(t_cub3d *cub3d);
 
 /* ---------parce------------- */
 void    main_parce(t_cub3d  *cub3d);
@@ -144,6 +145,6 @@ int    check_area(int   test_x,int  test_y,t_cub3d * cub3d);
 int keys_pressed(int keycode, void *param);
 
 
-int rbga_color(int r, int b, int g, int a);// function take rbga valur return one number for the color
+int rgb_color(int r, int b, int g, int a);
 
 #endif

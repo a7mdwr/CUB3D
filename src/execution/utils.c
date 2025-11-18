@@ -1,12 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zsid-ele <zsid-ele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/18 17:10:33 by zsid-ele          #+#    #+#             */
+/*   Updated: 2025/11/18 17:10:33 by zsid-ele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/cub3d.h"
 
-int squr(int num)
+int	squr(int num)
 {
-    return(num * num);
+	return (num * num);
 }
-int abs(int i)
+
+int	abs(int i)
 {
-    if (i < 0)
-        i = i * -1;
-    return(i);
+	if (i < 0)
+		i = i * -1;
+	return (i);
 }

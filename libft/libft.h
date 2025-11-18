@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zsid-ele <zsid-ele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aradwan <aradwan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 14:51:40 by zsid-ele          #+#    #+#             */
-/*   Updated: 2025/09/03 16:51:37 by zsid-ele         ###   ########.fr       */
+/*   Updated: 2025/11/18 16:55:45 by aradwan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strchr(const char *s, int c);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 int		ft_isprint(int c);
+int		ft_atoi(const char *str);
 int		ft_isdigit(char c);
 int		ft_isalpha(char c);
 int		ft_isalnum(int c);

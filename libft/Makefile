@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: zsid-ele <zsid-ele@student.42.fr>          +#+  +:+       +#+         #
+#    By: aradwan <aradwan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/21 10:37:51 by zsid-ele          #+#    #+#              #
-#    Updated: 2025/09/03 16:52:55 by zsid-ele         ###   ########.fr        #
+#    Updated: 2025/11/18 16:57:16 by aradwan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ ARC			= ar rcs
 
 CC			= cc
 
-C 			= -c #for not linking the files #
+C 			= -c
 
 FLAGS		= -Wall -Wextra -Werror
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zsid-ele <zsid-ele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aradwan <aradwan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 17:12:01 by zsid-ele          #+#    #+#             */
-/*   Updated: 2024/12/21 17:16:07 by zsid-ele         ###   ########.fr       */
+/*   Updated: 2025/11/18 16:54:59 by aradwan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 static unsigned int	ret_check_custom(unsigned int i, int sign)
 {
 	if (i > 2147483647 && sign == 1)
-		return (-1);
+		return (-2000);
 	if (i > 2147483648 && sign == -1)
-		return (0);
+		return (2000);
 	else
 		return (i * sign);
 }
 
-int	ft_atoi_custom(const char *str)
+int	ft_atoi(const char *str)
 {
 	unsigned int	num;
 	int				found;
