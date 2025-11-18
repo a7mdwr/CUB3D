@@ -12,12 +12,9 @@ void flood_fill(char **map, int x, int y, int *valid)
     map[y][x] = 'F';
     flood_fill(map, x + 1, y, valid);
     flood_fill(map, x - 1, y, valid);
-
     flood_fill(map, x, y + 1, valid);
     flood_fill(map, x, y - 1, valid);
 }
-
-
 
 
 void check_closed_map(char **map, int player_x, int player_y, t_cub3d *cub3d)
@@ -94,7 +91,6 @@ void 	check_undfind_simple(char	**map, t_cub3d	*cub3d)
 		i++;
 	}
 }
-
 
 void check_map(t_cub3d *cub3d)
 {

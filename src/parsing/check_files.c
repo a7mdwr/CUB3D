@@ -1,7 +1,6 @@
 #include "../include/cub3d.h"
 
-
-void open_xpm(t_cub3d *cub3d)
+void open_xpm_helper(t_cub3d *cub3d)
 {
     if (!cub3d->no || (cub3d->fd_no = open(cub3d->no, O_RDONLY)) < 0)
 	{
@@ -17,6 +16,11 @@ void open_xpm(t_cub3d *cub3d)
 	}
 	else
 		close(cub3d->fd_so);
+}
+
+void open_xpm(t_cub3d *cub3d)
+{
+    open_xpm_helper(cub3d);
     if (!cub3d->we || (cub3d->fd_we = open(cub3d->we, O_RDONLY)) < 0)
 	{
 		close(cub3d->fd_we);
@@ -32,7 +36,6 @@ void open_xpm(t_cub3d *cub3d)
 	else
 		close(cub3d->fd_ea);
 }
-
 
 void    check_name(t_cub3d  *cub3d)
 {
@@ -60,7 +63,6 @@ int ends_with_xpm(const char *str)
         return (0);
     return (ft_strcmp(str + len - 4, ".xpm") == 0);
 }
-
 
 void check_names(t_cub3d *cub3d)
 {

@@ -1,11 +1,4 @@
-
-
-
-
 NO texture/1.xpm
-
-
-
 SO       ./texture/2.xpm
 
 WE         ./texture/3.xpm
@@ -14,14 +7,14 @@ WE         ./texture/3.xpm
 EA          ./texture/4.xpm
 
 
-F 0,0,0
+F 0,0,200
 
 
 
 
 
 
-C 0,0,255
+C 22,100,45
 
 
 
