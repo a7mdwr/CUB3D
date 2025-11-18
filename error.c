@@ -1,5 +1,19 @@
 #include "include/cub3d.h"
 
+void	*safe_malloc(size_t size)
+{
+	void	*a;
+    t_cub3d cub3d;
+
+	a = malloc(size);
+	if (a == NULL)
+	{
+		ft_error("Error: malloc failed\n", 71, &cub3d);
+		return (0);
+	}
+	return (a);
+}
+
 void    free_array(char **array)
 {
     int i;
@@ -47,7 +61,7 @@ void    ahasna(t_cub3d   *cub3d)
 77 → Permission denied (not allowed to access resource)
 78 → Configuration error (bad settings, missing environment
 */
-void    error(char  *error,int  exitcode, t_cub3d   *cub3d)
+void    ft_error(char  *error,int  exitcode, t_cub3d   *cub3d)
 {
     ahasna(cub3d);
     printf("\033[31mError\nExit code(%d)->%s\033[0m\n", exitcode, error);

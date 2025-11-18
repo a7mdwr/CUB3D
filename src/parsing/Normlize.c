@@ -122,7 +122,7 @@ static void	parse_color_helper(char **parts, int *dest, t_cub3d *cub3d)
 			if (!ft_isdigit(parts[i][j]))
 			{
 				free_array(parts);
-				error("Color values must a digit!!!", 68, cub3d);
+				ft_error("Color values must a digit!!!", 68, cub3d);
 			}
 			j++;
 		}
@@ -130,7 +130,7 @@ static void	parse_color_helper(char **parts, int *dest, t_cub3d *cub3d)
 		if (dest[i] < 0 || dest[i] > 255)
 		{
 			free_array(parts);
-			error("Color values must be between 0 and 255", 68, cub3d);
+			ft_error("Color values must be between 0 and 255", 68, cub3d);
 		}
 		i++;
 	}
@@ -149,7 +149,7 @@ void	parse_color_str(const char *str, int type, t_cub3d *cub3d)
 	if (!parts || !parts[0] || !parts[1] || !parts[2] || parts[3])
 	{
 		free_array(parts);
-		error("Invalid color format (must be R,G,B)", 67, cub3d);
+		ft_error("Invalid color format (must be R,G,B)", 67, cub3d);
 	}
 	parse_color_helper(parts, dest, cub3d);
 	free_array(parts);

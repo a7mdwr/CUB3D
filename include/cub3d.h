@@ -84,7 +84,7 @@ typedef struct s_cub3d
 
 
 /* ---------clean exit------------- */
-void    error(char  *error,int  exitcode, t_cub3d   *cub3d);
+void    ft_error(char  *error,int  exitcode, t_cub3d   *cub3d);
 void    ahasna(t_cub3d   *cub3d);
 void    free_array(char **array);
 
@@ -123,6 +123,7 @@ int	ft_strcmp(const char *s1, const char *s2);
 void	remove_newline(char **cub3d);
 char	*ft_strcpy(char *dst, const char *src);
 void normalize_map(t_cub3d *cub);
+void	*safe_malloc(size_t size);
 
 
 /* ---------execution------------- */

@@ -1,5 +1,13 @@
 {
     "files.associations": {
-        "__node_handle": "c"
+        "__node_handle": "c",
+        "locale": "c",
+        "__config": "c",
+        "__errc": "c",
+        "__hash_table": "c",
+        "__locale": "c",
+        "__tuple": "c",
+        "bitset": "c",
+        "ios": "c"
     }
 }

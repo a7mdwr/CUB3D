@@ -28,9 +28,7 @@ void check_closed_map(char **map, int player_x, int player_y, t_cub3d *cub3d)
 	j = 0;
 	while (map[i])
 		i++;
-	copy = malloc(sizeof(char *) * (i + 1));
-	if (!copy)
-		error("System error (e.g., malloc failed, resource unavailable)", 71, cub3d);
+	copy = safe_malloc(sizeof(char *) * (i + 1));
     while (j < i)
 	{
         copy[j] = ft_strdup(map[j]);
@@ -40,7 +38,7 @@ void check_closed_map(char **map, int player_x, int player_y, t_cub3d *cub3d)
     flood_fill(copy, player_x, player_y, &valid);
 	free_array(copy);
     if (!valid)
-        error("Map is not closed", 65, cub3d);
+        ft_error("Map is not closed", 65, cub3d);
 }
 
 
@@ -57,7 +55,7 @@ void find_player(char **map, int *px, int *py, t_cub3d *cub3d)
                 map[y][x] == 'E' || map[y][x] == 'W')
             {
                 if (found)
-                    error("Multiple player positions", 65, cub3d);
+                    ft_error("Multiple player positions", 65, cub3d);
                 *px = x;
                 *py = y;
                 found = 1;
@@ -67,7 +65,7 @@ void find_player(char **map, int *px, int *py, t_cub3d *cub3d)
         y++;
     }
     if (!found)
-        error("No player found in map", 65, cub3d);
+        ft_error("No player found in map", 65, cub3d);
 }
 
 void 	check_undfind_simple(char	**map, t_cub3d	*cub3d)
@@ -82,9 +80,7 @@ void 	check_undfind_simple(char	**map, t_cub3d	*cub3d)
 		while(map[i][j] != '\0')
 		{
 			if (map[i][j] != 'N'&& map[i][j] !='E'&& map[i][j] !='W'&& map[i][j] !='S'&& map[i][j] !=' '&& map[i][j] !='1'&& map[i][j] !='0' && map[i][j] !='\n')
-			{
-				error("Data format error (bad input file, corrupted data)", 65, cub3d);
-			}
+				ft_error("Data format error (bad input file, corrupted data)", 65, cub3d);
 			j++;
 		}
 		j = 0;
@@ -97,9 +93,7 @@ void check_map(t_cub3d *cub3d)
     int player_x, player_y;
 
     if (!cub3d->map)
-	{
-        error("No map found", 65, cub3d);
-	}
+        ft_error("No map found", 65, cub3d);
 	normalize_map(cub3d);
     find_player(cub3d->map, &player_x, &player_y, cub3d);
     check_closed_map(cub3d->map, player_x, player_y, cub3d);

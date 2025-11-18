@@ -29,6 +29,6 @@ int main(int    arg, char   **argv)
         main_execution(&cub3d);
     }
     else
-        error("Usage error", 64, &cub3d);
+        ft_error("Usage error", 64, &cub3d);
     return(0);
 }

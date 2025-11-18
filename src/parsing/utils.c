@@ -16,30 +16,34 @@ int	ft_atoi_custom(const char *str)
 	unsigned int	num;
 	int				found;
 	int				sign;
+	int				i;
 
+	i = 0;
 	num = 0;
 	found = 0;
 	sign = 1;
-	while (*str != '\0')
+	while (str[i] != '\0')
 	{
-		if (*str >= '0' && *str <= '9')
+		if ((str[i] == '+' || str[i] == '-') && found == 0)
 		{
 			found = 1;
-			num = (num * 10) + (*str - '0');
+			if (str[i] == '-')
+				sign = -1;
+			else
+				sign = 1;
 		}
-		else if ((*str == '+' || *str == '-') && found == 0)
+		else if (str[i] >= '0' && str[i] <= '9')
 		{
 			found = 1;
-			sign = 44 - *str;
+			num = (num * 10) + (str[i] - '0');
 		}
-		else if ((*str != ' ' && !(*str >= '\t' && *str <= '\r')
+		else if ((str[i] != ' ' && !(str[i] >= '\t' && str[i] <= '\r')
 				&& found == 0) || found == 1)
 			break ;
 		str++;
 	}
-	return ((int) ret_check_custom(num, sign));
+	return ((int)ret_check_custom(num, sign));
 }
-
 
 int	ft_isspace(unsigned char c)
 {
@@ -47,6 +51,7 @@ int	ft_isspace(unsigned char c)
 		return (c);
 	return(0);
 }
+
 int	ft_strcmp(const char *s1, const char *s2)
 {
 	int	i;

@@ -6,7 +6,7 @@
 /*   By: aradwan <aradwan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/16 17:33:02 by aradwan           #+#    #+#             */
-/*   Updated: 2025/11/16 19:53:59 by aradwan          ###   ########.fr       */
+/*   Updated: 2025/11/18 15:03:51 by aradwan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,7 @@ void	normalize_map(t_cub3d *cub)
 	{
 		if (ft_strlen(cub->map[i]) < max_len)
 		{
-			new_row = malloc(sizeof(char) * (max_len + 1));
-			if (!new_row)
-				return ;
+			new_row = safe_malloc(sizeof(char) * (max_len + 1));
 			ft_strcpy(new_row, cub->map[i]);
 			j = ft_strlen(cub->map[i]);
 			while (j < max_len)
@@ -66,7 +64,7 @@ void    main_parce(t_cub3d  *cub3d)
     check_name(cub3d);
     cub3d->fd_cub = open(cub3d->filename, O_RDONLY);
     if (0 > cub3d->fd_cub)
-        error("Cannot open input (file not found / permission denied)", 66, cub3d);
+        ft_error("Cannot open input (file not found / permission denied)", 66, cub3d);
     fill_information(cub3d);
 	remove_spaces(cub3d);
 	check_map(cub3d);

@@ -30,56 +30,61 @@ static void	save_identifier(t_cub3d *cub3d, char *line)
 	else
 	{
 		free(line);
-		error("Duplicate or invalid identifier in .cub file", 67, cub3d);
+		ft_error("Duplicate or invalid identifier in .cub file", 67, cub3d);
 	}
+}
+
+static int fill_map_helper(t_cub3d *cub3d, char *line)
+{
+	int j;
+	char	**new;
+
+	j = 0;
+	if (line)
+	{
+		j = 0;
+		while (cub3d->map[j])
+			j++;
+		new = safe_malloc(sizeof(char *) * (j + 2));
+		j = 0;
+		while (cub3d->map[j])
+		{
+			new[j] = ft_strdup(cub3d->map[j]);
+			j++;
+		}
+		new[j] = NULL;
+		free_array(cub3d->map);
+		cub3d->map = new;
+		return 1;
+	}
+	else
+		return 0;
 }
 
 void	fill_map(t_cub3d *cub3d, char *line)
 {
 	int i;
-	int j;
 
 	i = 0;
-	j = 0;
-	cub3d->map = malloc(sizeof(char *) * 2);
-	char	**new;
-	new = NULL;
+	cub3d->map = safe_malloc(sizeof(char *) * 2);
+	cub3d->map[0] = NULL;
+	cub3d->map[1] = NULL;
 	while (line)
 	{
-		if (*line == '\n') // empty line inside map = invalid
+		if (*line == '\n')
 		{
 			free(line);
-			error("Invalid empty line inside map", 68, cub3d);
+			ft_error("Invalid empty line inside map", 68, cub3d);
 		}
-		cub3d->map[i] = ft_strdup(line); // duplicate before freeing
+		cub3d->map[i] = ft_strdup(line);
 		cub3d->map[i + 1] = NULL;
 		free(line);
 		i++;
 		line = get_next_line(cub3d->fd_cub);
-		if (line)
-		{
-			j = 0;
-			while (cub3d->map[j])
-				j++;
-			new = malloc(sizeof(char *) * (j + 2));
-			j = 0;
-			while (cub3d->map[j])
-			{
-				new[j] = ft_strdup(cub3d->map[j]);
-				j++;
-			}
-			new[j] = NULL;
-			free_array(cub3d->map);
-			cub3d->map = new;
-		}
-		else
-		{
-			cub3d->map[i] = NULL;
+		if (!fill_map_helper(cub3d, line))
 			break;
-		}
 	}
 }
-
 
 void	fill_information(t_cub3d *cub3d)
 {
@@ -106,7 +111,7 @@ void	fill_information(t_cub3d *cub3d)
 	if (found < 6)
 	{
 		free(line);
-		error("Missing one or more identifiers (NO, SO, WE, EA, F, C)", 68, cub3d);
+		ft_error("Missing one or more identifiers (NO, SO, WE, EA, F, C)", 68, cub3d);
 	}
 	while(*line == '\n')
 	{
@@ -116,7 +121,7 @@ void	fill_information(t_cub3d *cub3d)
 	if (!line || (*line != '1' && *line != '0' && *line != ' '))
 	{
 		free(line);
-		error("Missing the map or invalid map", 68, cub3d);
+		ft_error("Missing the map or invalid map", 68, cub3d);
 	}
 	fill_map(cub3d, line);
 }
