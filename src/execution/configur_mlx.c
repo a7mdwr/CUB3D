@@ -20,9 +20,9 @@ void    config_mlx(t_cub3d   *cub3d)
 
     while(cub3d->map[y])
         y++;
-    cub3d->mlx.size_y = y * SQUARE_SIZE;
+    cub3d->mlx.size_y =  1024 ;
     x = ft_strlen(cub3d->map[0]);
-    cub3d->mlx.size_x = x * SQUARE_SIZE;
+    cub3d->mlx.size_x = 1024;
 }
 
 

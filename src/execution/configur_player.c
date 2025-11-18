@@ -49,11 +49,11 @@ void config_player(t_cub3d   *cub3d, t_player *player)
         player->dir[1] = 0;
         printf("right\n");
     }
-    player->movespeed = 4;
+    player->movespeed = 6;
     player->c = cub3d->map[i][j];
     cub3d->map[i][j] = '0';
     cub3d->player.position[0] = cub3d->player.position[0] * SQUARE_SIZE- SQUARE_SIZE/2;
     cub3d->player.position[1] = cub3d->player.position[1] * SQUARE_SIZE- SQUARE_SIZE/2;
-    cub3d->player.rotation_speed = 0.2;
+    cub3d->player.rotation_speed = 0.1;
     cub3d->player.angle = atan2(-player->dir[1], player->dir[0]);  
 }

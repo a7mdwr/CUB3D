@@ -76,10 +76,10 @@ typedef struct s_cub3d
     int  ceiling[3];
 }t_cub3d;
 
-#define SQUARE_SIZE 32
+#define SQUARE_SIZE 64
 #define FOV (60*M_PI/180) // radian to get accepted by math library 
 #define RES 2
-#define RADIUS  5
+#define RADIUS 1
 #define ARROW_LEN 32 * 10
 
 
