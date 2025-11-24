@@ -12,13 +12,6 @@
 
 #include "../include/cub3d.h"
 
-typedef struct s_variables
-{
-	int	x;
-	int	y;
-	int	found;
-}   t_variables;
-
 void	flood_fill(char **map, int x, int y, int *valid)
 {
 	if (y < 0 || x < 0 || !map[y] || !map[y][x] || map[y][x] == ' ')
@@ -62,30 +55,30 @@ void	check_closed_map(char **map, int player_x, int player_y, t_cub3d *cub3d)
 
 void	find_player(char **map, int *px, int *py, t_cub3d *cub3d)
 {
-	t_variables	*v;
+	t_variables	v;
 
-	v->y = 0;
-	v->x = 0;
-	v->found = 0;
-	while (map[v->y])
+	v.y = 0;
+	v.x = 0;
+	v.found = 0;
+	while (map[v.y])
 	{
-		v->x = 0;
-		while (map[v->y][v->x])
+		v.x = 0;
+		while (map[v.y][v.x])
 		{
-			if (map[v->y][v->x] == 'N' || map[v->y][v->x] == 'S' ||
-				map[v->y][v->x] == 'E' || map[v->y][v->x] == 'W')
+			if (map[v.y][v.x] == 'N' || map[v.y][v.x] == 'S' ||
+				map[v.y][v.x] == 'E' || map[v.y][v.x] == 'W')
 			{
-				if (v->found)
+				if (v.found)
 					ft_error("Multiple player positions", 65, cub3d);
-				*px = v->x;
-				*py = v->y;
-				v->found = 1;
+				*px = v.x;
+				*py = v.y;
+				v.found = 1;
 			}
-			v->x++;
+			v.x++;
 		}
-		v->y++;
+		v.y++;
 	}
-	if (!v->found)
+	if (!v.found)
 		ft_error("No player found in map", 65, cub3d);
 }
 

@@ -22,10 +22,11 @@ SRCS =	main.c error.c \
 		$(SRC_PARC)/parse.c \
 		$(SRC_PARC)/check_map.c \
 		$(SRC_PARC)/fill_info.c \
-		$(SRC_PARC)/utils.c \
+		$(SRC_PARC)/parsing_utils.c \
 		$(SRC_PARC)/Normlize.c \
 		$(SRC_PARC)/check_files.c \
-		$(SRC_PARC)/color_parsing.c
+		$(SRC_PARC)/color_parsing.c\
+		$(SRC_PARC)/parsing_utils2.c
 
 OBJS = $(SRCS:.c=.o)
 

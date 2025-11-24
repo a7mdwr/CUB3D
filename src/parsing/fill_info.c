@@ -12,18 +12,6 @@
 
 #include "../include/cub3d.h"
 
-static int	is_identifier(char *line, char *id)
-{
-	int	i;
-
-	i = 0;
-	while (id[i] && line[i] == id[i])
-		i++;
-	if (id[i] == '\0' && (line[i] == ' ' || line[i] == '\t'))
-		return (1);
-	return (0);
-}
-
 static void	save_identifier(t_cub3d *cub3d, char *line)
 {
 	if (is_identifier(line, "NO") && !cub3d->no)
@@ -97,7 +85,7 @@ void	fill_map(t_cub3d *cub3d, char *line)
 	}
 }
 
-void	fill_information(t_cub3d *cub3d)
+static char	*read_identifiers(t_cub3d *cub3d)
 {
 	char	*line;
 	int		found;
@@ -106,25 +94,27 @@ void	fill_information(t_cub3d *cub3d)
 	line = get_next_line(cub3d->fd_cub);
 	while (line)
 	{
-		if (*line == '\n')
+		if (*line != '\n')
 		{
-			free(line);
-			line = get_next_line(cub3d->fd_cub);
-			continue ;
+			save_identifier(cub3d, line);
+			found++;
 		}
-		save_identifier(cub3d, line);
 		free(line);
-		found++;
 		line = get_next_line(cub3d->fd_cub);
 		if (found == 6 || !line || *line == '1' || *line == '0' || *line == ' ')
 			break ;
 	}
 	if (found < 6)
-	{
-		free(line);
 		ft_error("Missing one or more identifiers (NO, SO, WE, EA, F, C)", 68, cub3d);
-	}
-	while (*line == '\n')
+	return (line);
+}
+
+void	fill_information(t_cub3d *cub3d)
+{
+	char	*line;
+
+	line = read_identifiers(cub3d);
+	while (line && *line == '\n')
 	{
 		free(line);
 		line = get_next_line(cub3d->fd_cub);

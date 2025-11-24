@@ -61,7 +61,8 @@ void	check_name(t_cub3d *cub3d)
 	int		len;
 	char	*filename;
 
-	*filename = cub3d->filename;
+	filename = NULL;
+	filename = cub3d->filename;
 	if (!filename)
 		ft_error("No filename provided", 65, cub3d);
 	len = ft_strlen(filename);

@@ -6,7 +6,7 @@
 /*   By: aradwan <aradwan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 14:32:44 by aradwan           #+#    #+#             */
-/*   Updated: 2025/11/24 14:43:59 by aradwan          ###   ########.fr       */
+/*   Updated: 2025/11/24 15:30:36 by aradwan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ void	check_names(t_cub3d *cub3d);
 void	normalize_map(t_cub3d *cub);
 void	check_map(t_cub3d *cub3d);
 void	open_xpm(t_cub3d *cub3d);
+int		is_identifier(char *line, char *id);
 
 /* ---------utils------------- */
 int		abs(int i);
