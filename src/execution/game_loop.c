@@ -135,7 +135,7 @@ int	keys_pressed(int keycode, void *param)
 
 	cub3d = (t_cub3d *)param;
 	if (keycode == 53)
-		execution_exit(cub3d);
+		exit(1);
 	if (keycode == 124)
 		cub3d->player.angle += cub3d->player.rotation_speed;
 	if (keycode == 123)

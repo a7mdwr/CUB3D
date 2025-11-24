@@ -118,7 +118,6 @@ void open_xpm(t_cub3d *cub3d);
 /* ---------utils------------- */
 int abs(int i);
 int squr(int num);
-int	ft_atoi_custom(const char *str);
 int	ft_isspace(unsigned char c);
 int	ft_strcmp(const char *s1, const char *s2);
 void	remove_newline(char **cub3d);
@@ -143,7 +142,6 @@ void render_scene(t_cub3d *cub3d);
 int game_loop(void *param);
 int    check_area(int   test_x,int  test_y,t_cub3d * cub3d);
 int keys_pressed(int keycode, void *param);
-
 
 int rgb_color(int r, int b, int g, int a);
 

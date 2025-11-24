@@ -6,7 +6,7 @@
 /*   By: aradwan <aradwan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 17:14:20 by aradwan           #+#    #+#             */
-/*   Updated: 2025/11/18 17:14:38 by aradwan          ###   ########.fr       */
+/*   Updated: 2025/11/24 13:34:26 by aradwan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	parse_color_helper(char **parts, int *dest, t_cub3d *cub3d)
 			}
 			j++;
 		}
-		dest[i] = ft_atoi_custom(parts[i]);
+		dest[i] = ft_atoi(parts[i]);
 		if (dest[i] < 0 || dest[i] > 255)
 		{
 			free_array(parts);

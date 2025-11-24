@@ -163,7 +163,7 @@ void    render_image(t_cub3d *cub3d, t_rendered_elements *re)
 {
     while (re->y < re->draw_start)
     {
-        re->color = rbga_color(cub3d->ceiling[0],cub3d->ceiling[1], cub3d->ceiling[2], 0 );
+        re->color = rgb_color(cub3d->ceiling[0],cub3d->ceiling[1], cub3d->ceiling[2], 0 );
         img_pixel_put(&cub3d->img, re->x, re->y, re->color);
         re->y++;
     }
@@ -179,7 +179,7 @@ void    render_image(t_cub3d *cub3d, t_rendered_elements *re)
     re->y = re->draw_end;
     while (re->y < cub3d->mlx.size_y -1)
     {
-        re->color = rbga_color(cub3d->floor[0],cub3d->floor[1], cub3d->floor[2], 0 );
+        re->color = rgb_color(cub3d->floor[0],cub3d->floor[1], cub3d->floor[2], 0 );
         img_pixel_put(&cub3d->img, re->x, re->y, re->color);
         re->y++;
     }

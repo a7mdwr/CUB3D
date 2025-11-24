@@ -25,7 +25,7 @@ SRCS =	main.c error.c \
 		$(SRC_PARC)/utils.c \
 		$(SRC_PARC)/Normlize.c \
 		$(SRC_PARC)/check_files.c \
-		$(SRC_PARC)/color_parsing 
+		$(SRC_PARC)/color_parsing.c
 
 OBJS = $(SRCS:.c=.o)
 
