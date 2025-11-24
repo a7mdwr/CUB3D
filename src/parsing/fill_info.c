@@ -14,7 +14,7 @@
 
 static int	is_identifier(char *line, char *id)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (id[i] && line[i] == id[i])
@@ -45,9 +45,9 @@ static void	save_identifier(t_cub3d *cub3d, char *line)
 	}
 }
 
-static int fill_map_helper(t_cub3d *cub3d, char *line)
+static int	fill_map_helper(t_cub3d *cub3d, char *line)
 {
-	int j;
+	int		j;
 	char	**new;
 
 	j = 0;
@@ -66,10 +66,10 @@ static int fill_map_helper(t_cub3d *cub3d, char *line)
 		new[j] = NULL;
 		free_array(cub3d->map);
 		cub3d->map = new;
-		return 1;
+		return (1);
 	}
 	else
-		return 0;
+		return (0);
 }
 
 void	fill_map(t_cub3d *cub3d, char *line)
@@ -93,7 +93,7 @@ void	fill_map(t_cub3d *cub3d, char *line)
 		i++;
 		line = get_next_line(cub3d->fd_cub);
 		if (!fill_map_helper(cub3d, line))
-			break;
+			break ;
 	}
 }
 
@@ -103,19 +103,19 @@ void	fill_information(t_cub3d *cub3d)
 	int		found;
 
 	found = 0;
-    line = get_next_line(cub3d->fd_cub);
+	line = get_next_line(cub3d->fd_cub);
 	while (line)
 	{
-		if (*line == '\n') // skip empty lines
+		if (*line == '\n')
 		{
 			free(line);
 			line = get_next_line(cub3d->fd_cub);
-			continue;
+			continue ;
 		}
 		save_identifier(cub3d, line);
 		free(line);
 		found++;
-        line = get_next_line(cub3d->fd_cub);
+		line = get_next_line(cub3d->fd_cub);
 		if (found == 6 || !line || *line == '1' || *line == '0' || *line == ' ')
 			break ;
 	}
@@ -124,7 +124,7 @@ void	fill_information(t_cub3d *cub3d)
 		free(line);
 		ft_error("Missing one or more identifiers (NO, SO, WE, EA, F, C)", 68, cub3d);
 	}
-	while(*line == '\n')
+	while (*line == '\n')
 	{
 		free(line);
 		line = get_next_line(cub3d->fd_cub);

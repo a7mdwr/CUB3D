@@ -6,7 +6,7 @@
 /*   By: aradwan <aradwan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 17:14:20 by aradwan           #+#    #+#             */
-/*   Updated: 2025/11/24 13:34:26 by aradwan          ###   ########.fr       */
+/*   Updated: 2025/11/24 14:45:01 by aradwan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ void	parse_color_str(const char *str, int type, t_cub3d *cub3d)
 	char	**parts;
 	int		*dest;
 
-	if (type == 1) // it mean F
+	if (type == 1)
 		dest = cub3d->floor;
-	else // otherwise its C
+	else
 		dest = cub3d->ceiling;
 	parts = ft_split(str, ',');
 	if (!parts || !parts[0] || !parts[1] || !parts[2] || parts[3])
@@ -59,10 +59,10 @@ void	parse_color_str(const char *str, int type, t_cub3d *cub3d)
 	free_array(parts);
 }
 
-void parce_colors(t_cub3d *cub3d)
+void	parce_colors(t_cub3d *cub3d)
 {
-    if (cub3d->f)
-        parse_color_str(cub3d->f, 1, cub3d);
-    if (cub3d->c)
-        parse_color_str(cub3d->c, 2, cub3d);
+	if (cub3d->f)
+		parse_color_str(cub3d->f, 1, cub3d);
+	if (cub3d->c)
+		parse_color_str(cub3d->c, 2, cub3d);
 }
