@@ -2,36 +2,15 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   game_loop.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+        
-	+:+     */
-/*   By: zsid-ele <zsid-ele@student.42.fr>          +#+  +:+      
-	+#+        */
-/*                                                +#+#+#+#+#+  
-	+#+           */
-/*   Created: 2025/11/18 17:01:28 by zsid-ele          #+#    #+#             */
-/*   Updated: 2025/11/18 17:01:28 by zsid-ele         ###   ########.fr       */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zsid-ele <zsid-ele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/29 09:32:35 by zsid-ele          #+#    #+#             */
+/*   Updated: 2025/11/29 09:32:35 by zsid-ele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-
-int	game_loop(void *param)
-{
-	t_cub3d	*cub3d;
-	cub3d = (t_cub3d *)param;
-	render_scene(cub3d);
-	return (0);
-}
-
-typedef struct s_circle_check
-{
-	int	x;
-	int	y;
-	int	dx;
-	int	dy;
-	int	curr_x;
-	int	curr_y;
-}	t_circle_check;
 
 int	check_inside_circle(t_cub3d *cub3d, t_circle_check *cc)
 {
@@ -83,7 +62,7 @@ int	move_vertical(t_cub3d *cub3d, int *test_x, int *test_y, int keycode)
 			cub3d->player.position[1] = *test_y;
 		}
 	}
-	if (keycode == 2) 
+	if (keycode == 2)
 	{
 		*test_x = cub3d->player.position[0] + cub3d->player.movespeed
 			* cub3d->player.dir[1];
@@ -100,7 +79,7 @@ int	move_vertical(t_cub3d *cub3d, int *test_x, int *test_y, int keycode)
 
 int	move_horizontal(t_cub3d *cub3d, int *test_x, int *test_y, int keycode)
 {
-	if (keycode == 13) 
+	if (keycode == 13)
 	{
 		*test_x = cub3d->player.position[0] + cub3d->player.movespeed
 			* cub3d->player.dir[0];
@@ -130,12 +109,12 @@ int	move_horizontal(t_cub3d *cub3d, int *test_x, int *test_y, int keycode)
 int	keys_pressed(int keycode, void *param)
 {
 	t_cub3d	*cub3d;
-	int	test_x;
-	int	test_y;
+	int		test_x;
+	int		test_y;
 
 	cub3d = (t_cub3d *)param;
 	if (keycode == 53)
-		exit(1);
+		execution_exit(cub3d);
 	if (keycode == 124)
 		cub3d->player.angle += cub3d->player.rotation_speed;
 	if (keycode == 123)

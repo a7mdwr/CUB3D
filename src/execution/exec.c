@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zsid-ele <zsid-ele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aradwan <aradwan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 17:05:08 by zsid-ele          #+#    #+#             */
-/*   Updated: 2025/11/18 17:05:41 by zsid-ele         ###   ########.fr       */
+/*   Updated: 2025/11/29 11:02:33 by aradwan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,13 @@ int	key_release(int keycode, t_cub3d *cub3d)
 	return (0);
 }
 
-int	execution_exit(t_cub3d *cub3d)
+int	game_loop(void *param)
 {
-	mlx_destroy_image(cub3d->mlx.mlx, cub3d->textures[0].img);
-	mlx_destroy_image(cub3d->mlx.mlx, cub3d->textures[1].img);
-	mlx_destroy_image(cub3d->mlx.mlx, cub3d->textures[2].img);
-	mlx_destroy_image(cub3d->mlx.mlx, cub3d->textures[3].img);
-	mlx_destroy_image(cub3d->mlx.mlx, cub3d->img.img);
-	mlx_destroy_window(cub3d->mlx.mlx, cub3d->mlx.win);
-	ahasna(cub3d);
-	printf("exit in clean way after freeing\n");
-	exit(0);
+	t_cub3d	*cub3d;
+
+	cub3d = (t_cub3d *)param;
+	render_scene(cub3d);
+	return (0);
 }
 
 void	main_execution(t_cub3d *cub3d)

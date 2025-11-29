@@ -62,7 +62,7 @@ static int	fill_map_helper(t_cub3d *cub3d, char *line)
 
 void	fill_map(t_cub3d *cub3d, char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	cub3d->map = safe_malloc(sizeof(char *) * 2);
@@ -105,7 +105,8 @@ static char	*read_identifiers(t_cub3d *cub3d)
 			break ;
 	}
 	if (found < 6)
-		ft_error("Missing one or more identifiers (NO, SO, WE, EA, F, C)", 68, cub3d);
+		ft_error("Missing one or more identifiers \
+			 (NO, SO, WE, EA, F, C)", 68, cub3d);
 	return (line);
 }
 

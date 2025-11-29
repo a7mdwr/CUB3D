@@ -2,23 +2,22 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   configur_mlx.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+
+/*                                                    +:+ +:+        
 	+:+     */
-/*   By: zsid-ele <zsid-ele@student.42.fr>          +#+  +:+
+/*   By: zsid-ele <zsid-ele@student.42.fr>          +#+  +:+      
 	+#+        */
-/*                                                +#+#+#+#+#+
+/*                                                +#+#+#+#+#+  
 	+#+           */
-/*   Created: 2025/11/18 16:54:07 by zsid-ele          #+#    #+#             */
-/*   Updated: 2025/11/18 16:54:07 by zsid-ele         ###   ########.fr       */
+/*   Created: 2025/11/29 09:32:10 by zsid-ele          #+#    #+#             */
+/*   Updated: 2025/11/29 09:32:10 by zsid-ele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-
 void	img_pixel_put(t_img *img, int x, int y, int color)
 {
-	char *dst;
+	char	*dst;
 
 	if (x < 0 || y < 0 || x >= img->width || y >= img->height)
 		return ;
@@ -28,13 +27,12 @@ void	img_pixel_put(t_img *img, int x, int y, int color)
 
 void	config_mlx(t_cub3d *cub3d)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	x = 0;
 	y = 0;
 	(void)cub3d;
-
 	while (cub3d->map[y])
 		y++;
 	cub3d->mlx.size_y = 1024;
@@ -58,11 +56,10 @@ void	load_texture(t_cub3d *cub3d, int id, char *path)
 
 int	get_tex_pixel(t_texture *tex, int x, int y)
 {
-	char *dst;
+	char	*dst;
 
 	if (x < 0 || x >= tex->width || y < 0 || y >= tex->height)
-		return (0); // safety check
-
+		return (0);
 	dst = tex->addr + (y * tex->line_length + x * (tex->bpp / 8));
 	return (*(unsigned int *)dst);
 }

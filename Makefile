@@ -19,6 +19,7 @@ SRCS =	main.c error.c \
 		$(SRC_EXE)/configur_player.c \
 		$(SRC_EXE)/reneder_scene.c \
 		$(SRC_EXE)/exec.c \
+		$(SRC_EXE)/reneder_helper.c \
 		$(SRC_PARC)/parse.c \
 		$(SRC_PARC)/check_map.c \
 		$(SRC_PARC)/fill_info.c \
