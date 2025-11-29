@@ -6,7 +6,7 @@
 /*   By: aradwan <aradwan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 14:32:44 by aradwan           #+#    #+#             */
-/*   Updated: 2025/11/24 15:30:36 by aradwan          ###   ########.fr       */
+/*   Updated: 2025/11/29 11:00:17 by aradwan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,67 @@
 # define KEY_S 1
 # define KEY_D 2
 # define KEY_ESC 53
+
+typedef struct s_helper_vars
+{
+	int		i;
+	int		j;
+	int		k;
+
+}			t_helper_vars;
+
+typedef struct s_rendered_elements
+{
+	double	camera_x;
+	double	wall_x;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+	double	wall_dist;
+	double	corrected_dist;
+	double	ray_angle;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	double	ray_x;
+	double	ray_y;
+	int		tex_y;
+	int		tex_x;
+	int		side;
+	int		tex_id;
+	int		color;
+	int		x;
+	int		y;
+	int		d;
+}			t_rendered_elements;
+
+typedef struct s_cast_elements
+{
+	double	ray_x;
+	double	ray_y;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	int		map_x;
+	int		map_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	int		step_x;
+	int		step_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	int		hit;
+	int		side;
+	double	perp_wall_dist;
+}			t_cast_elements;
+
+typedef struct s_circle_check
+{
+	int		x;
+	int		y;
+	int		dx;
+	int		dy;
+	int		curr_x;
+	int		curr_y;
+}			t_circle_check;
 
 typedef struct s_variables
 {
@@ -71,9 +132,9 @@ typedef struct s_mlx
 
 typedef struct s_player
 {
-	double	position[2]; // (x, y)
-	double	dir[2];// up, down, left, rigth
-	double	fov[2]; //  +0.66 and -0.66 to the diraction
+	double	position[2];
+	double	dir[2];
+	double	fov[2];
 	int		n_rays;
 	double	angle;
 	int		movespeed;
@@ -87,7 +148,7 @@ typedef struct s_cub3d
 	t_player	player;
 	t_mlx		mlx;
 	t_img		img;
-	t_texture	textures[4]; // 0=N, 1=S, 2=E, 3=W
+	t_texture	textures[4];
 	char		*filename;
 	int			fd_cub;
 	char		**map;
@@ -109,6 +170,7 @@ typedef struct s_cub3d
 void	ft_error(char *error, int exitcode, t_cub3d *cub3d);
 void	ahasna(t_cub3d *cub3d);
 void	free_array(char **array);
+int		execution_exit(t_cub3d *cub3d);
 
 /* ---------parce------------- */
 void	main_parce(t_cub3d *cub3d);
