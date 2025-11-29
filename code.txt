@@ -6,14 +6,14 @@ SRCS =	main.c error.c \
 		$(SRC_EXE)/utils.c \
 		$(SRC_EXE)/game_loop.c \
 		$(SRC_EXE)/configur_player.c \
-		$(SRC_EXE)/reneder_scene.c \
+		$(SRC_EXE)/render_scene.c \
 		$(SRC_EXE)/exec.c \
-		$(SRC_EXE)/reneder_helper.c \
+		$(SRC_EXE)/render_helper.c \
 		$(SRC_PARC)/parse.c \
 		$(SRC_PARC)/check_map.c \
 		$(SRC_PARC)/fill_info.c \
 		$(SRC_PARC)/parsing_utils.c \
-		$(SRC_PARC)/Normlize.c \
+		$(SRC_PARC)/normalize.c \
 		$(SRC_PARC)/check_files.c \
 		$(SRC_PARC)/color_parsing.c\
 		$(SRC_PARC)/parsing_utils2.c
@@ -112,179 +112,223 @@ void	ft_error(char *error, int exitcode, t_cub3d *cub3d)
 	exit(exitcode);
 }
 
-==> main.c <==
-#include "include/cub3d.h"
+==> include/cub3d.h <==
+#ifndef CUB3D_H
+# define CUB3D_H
 
-void	init_ver(t_cub3d *cub3d)
-{
-	(void)cub3d;
-	cub3d->fd_cub = -1;
-	cub3d->fd_no = -1;
-	cub3d->fd_so = -1;
-	cub3d->fd_we = -1;
-	cub3d->fd_ea = -1;
-	cub3d->c = NULL;
-	cub3d->f = NULL;
-	cub3d->no = NULL;
-	cub3d->so = NULL;
-	cub3d->we = NULL;
-	cub3d->ea = NULL;
-	cub3d->map = NULL;
-}
-
-int	main(int arg, char **argv)
-{
-	t_cub3d	cub3d;
-
-	init_ver(&cub3d);
-	if (arg == 2)
-	{
-		cub3d.filename = argv[1];
-		main_parce(&cub3d);
-		main_execution(&cub3d);
-	}
-	else
-		ft_error("Usage error", 64, &cub3d);
-	return (0);
-}
-
-==> include <==
-
-==> libft/libft.h <==
-#ifndef LIBFT_H
-# define LIBFT_H
-# include <stdlib.h>
 # include <unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <math.h>
+# include <fcntl.h>
+# include "../minilibx/mlx.h"
+# include "../libft/libft.h"
 
-typedef struct s_list
+# define SQUARE_SIZE 64
+#define FOV (60.0 * M_PI / 180.0)
+# define RES 2
+# define RADIUS 1
+# define KEY_W 13
+# define KEY_A 0
+# define KEY_S 1
+# define KEY_D 2
+# define KEY_ESC 53
+
+typedef struct s_helper_vars
 {
-	void			*content;
-	struct s_list	*next;
-}	t_list;
-# define BUFFER_SIZE 1
+	int		i;
+	int		j;
+	int		k;
 
-void	*ft_memset(void *b, int c, size_t len);
-char	*ft_memcpy(void *dst,
-			const void *src, size_t n);
-void	*ft_memchr(const void *s, int c, size_t n);
-size_t	ft_strlcpy(char *dst, const char *src,
-			size_t dstsize);
-void	*ft_memmove(void *dst, const void *src, size_t len);
-int		ft_isalpha(char c);
-size_t	ft_strlen(const char *s);
-int		ft_isdigit(char c);
-int		ft_isalpha(char c);
-int		ft_isalnum(int c);
-int		ft_atoi(const char *str);
-int		ft_toupper(int c);
-int		ft_tolower(int c);
-char	*ft_strrchr(const char *s, int c);
-char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
-char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_strchr(const char *s, int c);
-int		ft_memcmp(const void *s1, const void *s2, size_t n);
-int		ft_isprint(int c);
-int		ft_atoi(const char *str);
-int		ft_isdigit(char c);
-int		ft_isalpha(char c);
-int		ft_isalnum(int c);
-void	ft_bzero(void *s, size_t n);
-int		ft_atoi(const char *str);
-char	*ft_strdup(const char *s1);
-void	*ft_calloc(size_t count, size_t size);
-void	ft_putendl_fd(char *s, int fd);
-void	ft_putnbr_fd(int n, int fd);
-void	ft_putstr_fd(char *s, int fd);
-void	ft_putchar_fd(char c, int fd);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	*ft_strtrim(char const *s1, char const *set);
-char	**ft_split(char const *s, char c);
-char	*ft_itoa(int n);
-char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
-void	ft_striteri(char *s, void (*f)(unsigned int, char*));
-int		ft_isascii(int c);
-size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
-char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
-void	ft_lstadd_back(t_list	**lst, t_list	*new);
-void	ft_lstadd_front(t_list **lst, t_list *new);
-void	ft_lstclear(t_list	**lst, void (*dev)(void *));
-void	ft_lstdelone(t_list	*lst, void (*del)(void *));
-void	ft_lstiter(t_list	*lst, void (*f)(void *));
-t_list	*ft_lstnew(void *content);
-t_list	*ft_lstlast(t_list *lst);
-int		ft_lstsize(t_list	*lst);
-char	*get_next_line(int fd);
-int	free_pointer(char **ptr);
+}			t_helper_vars;
+
+typedef struct s_rendered_elements
+{
+	double	camera_x;
+	double	wall_x;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+	double	wall_dist;
+	double	corrected_dist;
+	double	ray_angle;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	double	ray_x;
+	double	ray_y;
+	int		tex_y;
+	int		tex_x;
+	int		side;
+	int		tex_id;
+	int		color;
+	int		x;
+	int		y;
+	int		d;
+}			t_rendered_elements;
+
+typedef struct s_cast_elements
+{
+	double	ray_x;
+	double	ray_y;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	int		map_x;
+	int		map_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	int		step_x;
+	int		step_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	int		hit;
+	int		side;
+	double	perp_wall_dist;
+}			t_cast_elements;
+
+typedef struct s_circle_check
+{
+	int		x;
+	int		y;
+	int		dx;
+	int		dy;
+	int		curr_x;
+	int		curr_y;
+}			t_circle_check;
+
+typedef struct s_variables
+{
+	int	x;
+	int	y;
+	int	found;
+}	t_variables;
+
+typedef struct s_img
+{
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line_length;
+	int		endian;
+	int		width;
+	int		height;
+}	t_img;
+
+typedef struct s_texture
+{
+	void	*img;
+	char	*addr;
+	int		width;
+	int		height;
+	int		bpp;
+	int		line_length;
+	int		endian;
+}	t_texture;
+
+typedef struct s_mlx
+{
+	void	*mlx;
+	void	*win;
+	int		size_x;
+	int		size_y;
+}	t_mlx;
+
+typedef struct s_player
+{
+	double	position[2];
+	double	dir[2];
+	double	fov[2];
+	int		n_rays;
+	double	angle;
+	int		movespeed;
+	float	rotation_speed;
+	float	fov_angle;
+	char	c;
+}	t_player;
+
+typedef struct s_cub3d
+{
+	t_player	player;
+	t_mlx		mlx;
+	t_img		img;
+	t_texture	textures[4];
+	char		*filename;
+	int			fd_cub;
+	char		**map;
+	char		*no;
+	int			fd_no;
+	char		*so;
+	int			fd_so;
+	char		*we;
+	int			fd_we;
+	char		*ea;
+	int			fd_ea;
+	char		*c;
+	char		*f;
+	int			floor[3];
+	int			ceiling[3];
+}	t_cub3d;
+
+/* ---------clean exit------------- */
+void	ft_error(char *error, int exitcode, t_cub3d *cub3d);
+void	ahasna(t_cub3d *cub3d);
+void	free_array(char **array);
+int		execution_exit(t_cub3d *cub3d);
+
+/* ---------parce------------- */
+void	main_parce(t_cub3d *cub3d);
+void	check_undfind_simple(char	**map, t_cub3d	*cub3d);
+void	fill_map(t_cub3d *cub3d, char *line);
+void	fill_information(t_cub3d *cub3d);
+void	check_name(t_cub3d *cub3d);
+void	flood_fill(char **map, int x, int y, int *valid);
+void	check_closed_map(char **map, int player_x,\
+		int player_y, t_cub3d *cub3d);
+void	find_player(char **map, int *px, int *py, t_cub3d *cub3d);
+char	*trim_after_key(const char *line);
+char	*trim_until_digit(const char *line);
+void	fix_end(t_cub3d *cub3d);
+void	remove_spaces(t_cub3d *cub3d);
+void	parse_color_str(const char *str, int type, t_cub3d *cub3d);
+void	parce_colors(t_cub3d *cub3d);
+int		ends_with_xpm(const char *str);
+void	check_names(t_cub3d *cub3d);
+void	normalize_map(t_cub3d *cub);
+void	check_map(t_cub3d *cub3d);
+void	open_xpm(t_cub3d *cub3d);
+int		is_identifier(char *line, char *id);
+
+/* ---------utils------------- */
+int		abs(int i);
+int		squr(int num);
+int		ft_isspace(unsigned char c);
+int		ft_strcmp(const char *s1, const char *s2);
+void	remove_newline(char **cub3d);
+char	*ft_strcpy(char *dst, const char *src);
+void	normalize_map(t_cub3d *cub);
+void	*safe_malloc(size_t size);
+
+/* ---------execution------------- */
+//mlx config
+void	config_mlx(t_cub3d *cub3d);
+void	img_pixel_put(t_img *img, int x, int y, int color);
+void	load_texture(t_cub3d *cub3d, int id, char *path);
+int		get_tex_pixel(t_texture *tex, int x, int y);
+// scene
+void	main_execution(t_cub3d *cub3d);
+void	config_player(t_cub3d *cub3d, t_player *player);
+double	cast_ray(t_cub3d *cub3d, double ray_angle);
+double	cast_ray_side(t_cub3d *cub3d, double ray_angle);
+int	move_horizontal(t_cub3d *cub3d, int *test_x, int *test_y, int keycode);
+int	move_vertical(t_cub3d *cub3d, int *test_x, int *test_y, int keycode);
+// main reneder function
+void	render_scene(t_cub3d *cub3d);
+int		game_loop(void *param);
+int		check_area(int test_x, int test_y, t_cub3d *cub3d);
+int		keys_pressed(int keycode, void *param);
+int		rgb_color(int r, int b, int g, int a);
+
 #endif
-==> error.c <==
-#include "include/cub3d.h"
-
-void	*safe_malloc(size_t size)
-{
-	void	*a;
-	t_cub3d	cub3d;
-
-	a = malloc(size);
-	if (a == NULL)
-	{
-		ft_error("Error: malloc failed\n", 71, &cub3d);
-		return (0);
-	}
-	return (a);
-}
-
-void	free_array(char **array)
-{
-	int	i;
-
-	i = 0;
-	if (array)
-	{
-		while (array[i])
-		{
-			free(array[i]);
-			i++;
-		}
-		free(array);
-	}
-	else
-		return ;
-}
-
-void	ahasna(t_cub3d *cub3d)
-{
-	free(cub3d->c);
-	free(cub3d->f);
-	free(cub3d->no);
-	free(cub3d->so);
-	free(cub3d->we);
-	free(cub3d->ea);
-	if (cub3d->map)
-		free_array(cub3d->map);
-}
-
-int	execution_exit(t_cub3d *cub3d)
-{
-	mlx_destroy_image(cub3d->mlx.mlx, cub3d->textures[0].img);
-	mlx_destroy_image(cub3d->mlx.mlx, cub3d->textures[1].img);
-	mlx_destroy_image(cub3d->mlx.mlx, cub3d->textures[2].img);
-	mlx_destroy_image(cub3d->mlx.mlx, cub3d->textures[3].img);
-	mlx_destroy_image(cub3d->mlx.mlx, cub3d->img.img);
-	mlx_clear_window(cub3d->mlx.mlx, cub3d->mlx.win);
-	mlx_destroy_window(cub3d->mlx.mlx, cub3d->mlx.win);
-	ahasna(cub3d);
-	printf("exit in clean way after freeing\n");
-	exit(0);
-}
-
-void	ft_error(char *error, int exitcode, t_cub3d *cub3d)
-{
-	ahasna(cub3d);
-	printf("\033[31mError\nExit code(%d)->%s\033[0m\n", exitcode, error);
-	exit(exitcode);
-}
+==> libft <==
 
 ==> main.c <==
 #include "include/cub3d.h"
@@ -321,6 +365,8 @@ int	main(int arg, char **argv)
 		ft_error("Usage error", 64, &cub3d);
 	return (0);
 }
+
+==> maps <==
 
 ==> minilibx/mlx.h <==
 /*
@@ -504,11 +550,11 @@ void	config_mlx(t_cub3d *cub3d)
 
 void	load_texture(t_cub3d *cub3d, int id, char *path)
 {
-	cub3d->textures[id].img = mlx_xpm_file_to_image(cub3d->mlx.mlx, path,
+	cub3d->textures[id].img = mlx_png_file_to_image(cub3d->mlx.mlx, path,
 			&cub3d->textures[id].width, &cub3d->textures[id].height);
 	if (!cub3d->textures[id].img)
 	{
-		printf("Error: failed to load texture %s\n", path);
+		printf("Error\nfailed to load texture %s\n", path);
 		exit(1);
 	}
 	cub3d->textures[id].addr = mlx_get_data_addr(cub3d->textures[id].img,
@@ -644,7 +690,6 @@ void	main_execution(t_cub3d *cub3d)
 ==> src/execution/game_loop.c <==
 #include "../include/cub3d.h"
 
-
 int	check_inside_circle(t_cub3d *cub3d, t_circle_check *cc)
 {
 	if (squr(cc->dx) + squr(cc->dy) <= squr(RADIUS))
@@ -671,7 +716,6 @@ int	check_area(int test_x, int test_y, t_cub3d *cub3d)
 		{
 			cc.dx = cc.x - test_x;
 			cc.dy = cc.y - test_y;
-			check_inside_circle(cub3d, &cc);
 			if (check_inside_circle(cub3d, &cc))
 				return (1);
 			cc.y++;
@@ -683,28 +727,29 @@ int	check_area(int test_x, int test_y, t_cub3d *cub3d)
 
 int	move_vertical(t_cub3d *cub3d, int *test_x, int *test_y, int keycode)
 {
+	double	new_x;
+	double	new_y;
+
+	(void)test_x;
+	(void)test_y;
+	new_x = cub3d->player.position[0];
+	new_y = cub3d->player.position[1];
 	if (keycode == 0)
 	{
-		*test_x = cub3d->player.position[0] - cub3d->player.movespeed
-			* cub3d->player.dir[1];
-		*test_y = cub3d->player.position[1] + cub3d->player.movespeed
-			* cub3d->player.dir[0];
-		if (check_area(*test_x, *test_y, cub3d) == 0)
-		{
-			cub3d->player.position[0] = *test_x;
-			cub3d->player.position[1] = *test_y;
-		}
+		new_x -= cub3d->player.movespeed * cub3d->player.dir[1];
+		new_y += cub3d->player.movespeed * cub3d->player.dir[0];
 	}
 	if (keycode == 2)
 	{
-		*test_x = cub3d->player.position[0] + cub3d->player.movespeed
-			* cub3d->player.dir[1];
-		*test_y = cub3d->player.position[1] - cub3d->player.movespeed
-			* cub3d->player.dir[0];
-		if (check_area(*test_x, *test_y, cub3d) == 0)
+		new_x += cub3d->player.movespeed * cub3d->player.dir[1];
+		new_y -= cub3d->player.movespeed * cub3d->player.dir[0];
+	}
+	if (keycode == 0 || keycode == 2)
+	{
+		if (check_area((int)new_x, (int)new_y, cub3d) == 0)
 		{
-			cub3d->player.position[0] = *test_x;
-			cub3d->player.position[1] = *test_y;
+			cub3d->player.position[0] = new_x;
+			cub3d->player.position[1] = new_y;
 		}
 	}
 	return (0);
@@ -712,28 +757,29 @@ int	move_vertical(t_cub3d *cub3d, int *test_x, int *test_y, int keycode)
 
 int	move_horizontal(t_cub3d *cub3d, int *test_x, int *test_y, int keycode)
 {
+	double	new_x;
+	double	new_y;
+
+	(void)test_x;
+	(void)test_y;
+	new_x = cub3d->player.position[0];
+	new_y = cub3d->player.position[1];
 	if (keycode == 13)
 	{
-		*test_x = cub3d->player.position[0] + cub3d->player.movespeed
-			* cub3d->player.dir[0];
-		*test_y = cub3d->player.position[1] + cub3d->player.movespeed
-			* cub3d->player.dir[1];
-		if (check_area(*test_x, *test_y, cub3d) == 0)
-		{
-			cub3d->player.position[0] = *test_x;
-			cub3d->player.position[1] = *test_y;
-		}
+		new_x += cub3d->player.movespeed * cub3d->player.dir[0];
+		new_y += cub3d->player.movespeed * cub3d->player.dir[1];
 	}
 	if (keycode == 1)
 	{
-		*test_x = cub3d->player.position[0] - cub3d->player.movespeed
-			* cub3d->player.dir[0];
-		*test_y = cub3d->player.position[1] - cub3d->player.movespeed
-			* cub3d->player.dir[1];
-		if (check_area(*test_x, *test_y, cub3d) == 0)
+		new_x -= cub3d->player.movespeed * cub3d->player.dir[0];
+		new_y -= cub3d->player.movespeed * cub3d->player.dir[1];
+	}
+	if (keycode == 13 || keycode == 1)
+	{
+		if (check_area((int)new_x, (int)new_y, cub3d) == 0)
 		{
-			cub3d->player.position[0] = *test_x;
-			cub3d->player.position[1] = *test_y;
+			cub3d->player.position[0] = new_x;
+			cub3d->player.position[1] = new_y;
 		}
 	}
 	return (0);
@@ -759,8 +805,9 @@ int	keys_pressed(int keycode, void *param)
 	return (0);
 }
 
-==> src/execution/reneder_helper.c <==
+==> src/execution/render_helper.c <==
 #include "../include/cub3d.h"
+ 
 
 void	cast_ray_helper(t_cast_elements *cast_elements)
 {
@@ -857,8 +904,7 @@ double	cast_ray_side(t_cub3d *cub3d, double ray_angle)
 	}
 	return (cast_elements.side);
 }
-
-==> src/execution/reneder_scene.c <==
+==> src/execution/render_scene.c <==
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -886,13 +932,12 @@ void	render_image(t_cub3d *cub3d, t_rendered_elements *re)
 	re->y = re->draw_end;
 	while (re->y < cub3d->mlx.size_y - 1)
 	{
-		re->color = rgb_color(cub3d->floor[0], cub3d->floor[1],
-				cub3d->floor[2], 0);
+		re->color = rgb_color(cub3d->floor[0], cub3d->floor[1], cub3d->floor[2],
+				0);
 		img_pixel_put(&cub3d->img, re->x, re->y, re->color);
 		re->y++;
 	}
 }
-
 void	decide_wall(t_rendered_elements *re)
 {
 	if (re->side == 0 && re->ray_dir_x > 0)
@@ -910,7 +955,6 @@ void	decide_wall(t_rendered_elements *re)
 		re->wall_x = 1 - re->wall_x;
 	}
 }
-
 void	decide_scene(t_cub3d *cub3d, t_rendered_elements *re)
 {
 	if (re->draw_start < 0)
@@ -929,11 +973,9 @@ void	decide_scene(t_cub3d *cub3d, t_rendered_elements *re)
 	re->tex_x = (int)(re->wall_x * cub3d->textures[re->tex_id].width);
 	re->y = 0;
 }
-
 void	render_scene(t_cub3d *cub3d)
 {
-	t_rendered_elements	re;
-
+	t_rendered_elements re;
 	re.x = 0;
 	ft_memset(cub3d->img.addr, 0, cub3d->img.line_length * cub3d->img.height);
 	while (re.x < cub3d->mlx.size_x)
@@ -956,7 +998,6 @@ void	render_scene(t_cub3d *cub3d)
 	mlx_put_image_to_window(cub3d->mlx.mlx, cub3d->mlx.win, cub3d->img.img, 0,
 		0);
 }
-
 ==> src/execution/utils.c <==
 #include "../include/cub3d.h"
 
@@ -970,111 +1011,6 @@ int	abs(int i)
 	if (i < 0)
 		i = i * -1;
 	return (i);
-}
-
-==> src/parsing/Normlize.c <==
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "../include/cub3d.h"
-
-char	*trim_after_key(const char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i] && !ft_isspace(line[i]))
-		i++;
-	while (line[i] && ft_isspace(line[i]))
-		i++;
-	return (ft_strdup(line + i));
-}
-
-char	*trim_until_digit(const char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i] && !ft_isdigit(line[i]))
-		i++;
-	return (ft_strdup(line + i));
-}
-
-void	fix_end(t_cub3d *cub3d)
-{
-	int	i;
-
-	i = 0;
-	if (cub3d->no)
-		remove_newline(&cub3d->no);
-	if (cub3d->so)
-		remove_newline(&cub3d->so);
-	if (cub3d->we)
-		remove_newline(&cub3d->we);
-	if (cub3d->ea)
-		remove_newline(&cub3d->ea);
-	if (cub3d->f)
-		remove_newline(&cub3d->f);
-	if (cub3d->c)
-		remove_newline(&cub3d->c);
-	while (cub3d->map[i])
-	{
-		remove_newline(&cub3d->map[i]);
-		i++;
-	}
-	check_undfind_simple(cub3d->map, cub3d);
-}
-
-static void	remove_spaces_helper(t_cub3d *cub3d)
-{
-	char	*tmp;
-
-	tmp = NULL;
-	if (cub3d->ea)
-	{
-		tmp = trim_after_key(cub3d->ea);
-		free(cub3d->ea);
-		cub3d->ea = tmp;
-	}
-	if (cub3d->f)
-	{
-		tmp = trim_until_digit(cub3d->f);
-		free(cub3d->f);
-		cub3d->f = tmp;
-	}
-	if (cub3d->c)
-	{
-		tmp = trim_until_digit(cub3d->c);
-		free(cub3d->c);
-		cub3d->c = tmp;
-	}
-}
-
-void	remove_spaces(t_cub3d *cub3d)
-{
-	char	*tmp;
-
-	tmp = NULL;
-	if (cub3d->no)
-	{
-		tmp = trim_after_key(cub3d->no);
-		free(cub3d->no);
-		cub3d->no = tmp;
-	}
-	if (cub3d->so)
-	{
-		tmp = trim_after_key(cub3d->so);
-		free(cub3d->so);
-		cub3d->so = tmp;
-	}
-	if (cub3d->we)
-	{
-		tmp = trim_after_key(cub3d->we);
-		free(cub3d->we);
-		cub3d->we = tmp;
-	}
-	remove_spaces_helper(cub3d);
-	fix_end(cub3d);
 }
 
 ==> src/parsing/check_files.c <==
@@ -1443,6 +1379,111 @@ void	fill_information(t_cub3d *cub3d)
 		ft_error("Missing the map or invalid map", 68, cub3d);
 	}
 	fill_map(cub3d, line);
+}
+
+==> src/parsing/normalize.c <==
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../include/cub3d.h"
+
+char	*trim_after_key(const char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i] && !ft_isspace(line[i]))
+		i++;
+	while (line[i] && ft_isspace(line[i]))
+		i++;
+	return (ft_strdup(line + i));
+}
+
+char	*trim_until_digit(const char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i] && !ft_isdigit(line[i]))
+		i++;
+	return (ft_strdup(line + i));
+}
+
+void	fix_end(t_cub3d *cub3d)
+{
+	int	i;
+
+	i = 0;
+	if (cub3d->no)
+		remove_newline(&cub3d->no);
+	if (cub3d->so)
+		remove_newline(&cub3d->so);
+	if (cub3d->we)
+		remove_newline(&cub3d->we);
+	if (cub3d->ea)
+		remove_newline(&cub3d->ea);
+	if (cub3d->f)
+		remove_newline(&cub3d->f);
+	if (cub3d->c)
+		remove_newline(&cub3d->c);
+	while (cub3d->map[i])
+	{
+		remove_newline(&cub3d->map[i]);
+		i++;
+	}
+	check_undfind_simple(cub3d->map, cub3d);
+}
+
+static void	remove_spaces_helper(t_cub3d *cub3d)
+{
+	char	*tmp;
+
+	tmp = NULL;
+	if (cub3d->ea)
+	{
+		tmp = trim_after_key(cub3d->ea);
+		free(cub3d->ea);
+		cub3d->ea = tmp;
+	}
+	if (cub3d->f)
+	{
+		tmp = trim_until_digit(cub3d->f);
+		free(cub3d->f);
+		cub3d->f = tmp;
+	}
+	if (cub3d->c)
+	{
+		tmp = trim_until_digit(cub3d->c);
+		free(cub3d->c);
+		cub3d->c = tmp;
+	}
+}
+
+void	remove_spaces(t_cub3d *cub3d)
+{
+	char	*tmp;
+
+	tmp = NULL;
+	if (cub3d->no)
+	{
+		tmp = trim_after_key(cub3d->no);
+		free(cub3d->no);
+		cub3d->no = tmp;
+	}
+	if (cub3d->so)
+	{
+		tmp = trim_after_key(cub3d->so);
+		free(cub3d->so);
+		cub3d->so = tmp;
+	}
+	if (cub3d->we)
+	{
+		tmp = trim_after_key(cub3d->we);
+		free(cub3d->we);
+		cub3d->we = tmp;
+	}
+	remove_spaces_helper(cub3d);
+	fix_end(cub3d);
 }
 
 ==> src/parsing/parse.c <==

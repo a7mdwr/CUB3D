@@ -37,13 +37,12 @@ void	render_image(t_cub3d *cub3d, t_rendered_elements *re)
 	re->y = re->draw_end;
 	while (re->y < cub3d->mlx.size_y - 1)
 	{
-		re->color = rgb_color(cub3d->floor[0], cub3d->floor[1],
-				cub3d->floor[2], 0);
+		re->color = rgb_color(cub3d->floor[0], cub3d->floor[1], cub3d->floor[2],
+				0);
 		img_pixel_put(&cub3d->img, re->x, re->y, re->color);
 		re->y++;
 	}
 }
-
 void	decide_wall(t_rendered_elements *re)
 {
 	if (re->side == 0 && re->ray_dir_x > 0)
@@ -61,7 +60,6 @@ void	decide_wall(t_rendered_elements *re)
 		re->wall_x = 1 - re->wall_x;
 	}
 }
-
 void	decide_scene(t_cub3d *cub3d, t_rendered_elements *re)
 {
 	if (re->draw_start < 0)
@@ -80,11 +78,9 @@ void	decide_scene(t_cub3d *cub3d, t_rendered_elements *re)
 	re->tex_x = (int)(re->wall_x * cub3d->textures[re->tex_id].width);
 	re->y = 0;
 }
-
 void	render_scene(t_cub3d *cub3d)
 {
-	t_rendered_elements	re;
-
+	t_rendered_elements re;
 	re.x = 0;
 	ft_memset(cub3d->img.addr, 0, cub3d->img.line_length * cub3d->img.height);
 	while (re.x < cub3d->mlx.size_x)

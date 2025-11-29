@@ -40,11 +40,11 @@ void	config_mlx(t_cub3d *cub3d)
 
 void	load_texture(t_cub3d *cub3d, int id, char *path)
 {
-	cub3d->textures[id].img = mlx_xpm_file_to_image(cub3d->mlx.mlx, path,
+	cub3d->textures[id].img = mlx_png_file_to_image(cub3d->mlx.mlx, path,
 			&cub3d->textures[id].width, &cub3d->textures[id].height);
 	if (!cub3d->textures[id].img)
 	{
-		printf("Error: failed to load texture %s\n", path);
+		printf("Error\nfailed to load texture %s\n", path);
 		exit(1);
 	}
 	cub3d->textures[id].addr = mlx_get_data_addr(cub3d->textures[id].img,

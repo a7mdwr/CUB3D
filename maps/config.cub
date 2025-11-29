@@ -1,10 +1,10 @@
-NO texture/1.xpm
-SO       ./texture/2.xpm
+NO texture/1.png
+SO       ./texture/2.png
 
-WE         ./texture/3.xpm
+WE         ./texture/3.png
 
 
-EA          ./texture/4.xpm
+EA          ./texture/4.png
 
 F 30,30,30
 

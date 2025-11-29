@@ -6,7 +6,7 @@
 /*   By: aradwan <aradwan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 14:32:44 by aradwan           #+#    #+#             */
-/*   Updated: 2025/11/29 12:16:02 by aradwan          ###   ########.fr       */
+/*   Updated: 2025/11/29 14:04:49 by aradwan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,9 @@
 # include "../libft/libft.h"
 
 # define SQUARE_SIZE 64
-# define FOV 1.0471975512
+#define FOV (60.0 * M_PI / 180.0)
 # define RES 2
 # define RADIUS 1
-# define ARROW_LEN 320
 # define KEY_W 13
 # define KEY_A 0
 # define KEY_S 1

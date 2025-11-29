@@ -12,7 +12,6 @@
 
 #include "../include/cub3d.h"
 
-
 int	check_inside_circle(t_cub3d *cub3d, t_circle_check *cc)
 {
 	if (squr(cc->dx) + squr(cc->dy) <= squr(RADIUS))
@@ -39,7 +38,6 @@ int	check_area(int test_x, int test_y, t_cub3d *cub3d)
 		{
 			cc.dx = cc.x - test_x;
 			cc.dy = cc.y - test_y;
-			check_inside_circle(cub3d, &cc);
 			if (check_inside_circle(cub3d, &cc))
 				return (1);
 			cc.y++;
@@ -51,28 +49,29 @@ int	check_area(int test_x, int test_y, t_cub3d *cub3d)
 
 int	move_vertical(t_cub3d *cub3d, int *test_x, int *test_y, int keycode)
 {
+	double	new_x;
+	double	new_y;
+
+	(void)test_x;
+	(void)test_y;
+	new_x = cub3d->player.position[0];
+	new_y = cub3d->player.position[1];
 	if (keycode == 0)
 	{
-		*test_x = cub3d->player.position[0] - cub3d->player.movespeed
-			* cub3d->player.dir[1];
-		*test_y = cub3d->player.position[1] + cub3d->player.movespeed
-			* cub3d->player.dir[0];
-		if (check_area(*test_x, *test_y, cub3d) == 0)
-		{
-			cub3d->player.position[0] = *test_x;
-			cub3d->player.position[1] = *test_y;
-		}
+		new_x -= cub3d->player.movespeed * cub3d->player.dir[1];
+		new_y += cub3d->player.movespeed * cub3d->player.dir[0];
 	}
 	if (keycode == 2)
 	{
-		*test_x = cub3d->player.position[0] + cub3d->player.movespeed
-			* cub3d->player.dir[1];
-		*test_y = cub3d->player.position[1] - cub3d->player.movespeed
-			* cub3d->player.dir[0];
-		if (check_area(*test_x, *test_y, cub3d) == 0)
+		new_x += cub3d->player.movespeed * cub3d->player.dir[1];
+		new_y -= cub3d->player.movespeed * cub3d->player.dir[0];
+	}
+	if (keycode == 0 || keycode == 2)
+	{
+		if (check_area((int)new_x, (int)new_y, cub3d) == 0)
 		{
-			cub3d->player.position[0] = *test_x;
-			cub3d->player.position[1] = *test_y;
+			cub3d->player.position[0] = new_x;
+			cub3d->player.position[1] = new_y;
 		}
 	}
 	return (0);
@@ -80,28 +79,29 @@ int	move_vertical(t_cub3d *cub3d, int *test_x, int *test_y, int keycode)
 
 int	move_horizontal(t_cub3d *cub3d, int *test_x, int *test_y, int keycode)
 {
+	double	new_x;
+	double	new_y;
+
+	(void)test_x;
+	(void)test_y;
+	new_x = cub3d->player.position[0];
+	new_y = cub3d->player.position[1];
 	if (keycode == 13)
 	{
-		*test_x = cub3d->player.position[0] + cub3d->player.movespeed
-			* cub3d->player.dir[0];
-		*test_y = cub3d->player.position[1] + cub3d->player.movespeed
-			* cub3d->player.dir[1];
-		if (check_area(*test_x, *test_y, cub3d) == 0)
-		{
-			cub3d->player.position[0] = *test_x;
-			cub3d->player.position[1] = *test_y;
-		}
+		new_x += cub3d->player.movespeed * cub3d->player.dir[0];
+		new_y += cub3d->player.movespeed * cub3d->player.dir[1];
 	}
 	if (keycode == 1)
 	{
-		*test_x = cub3d->player.position[0] - cub3d->player.movespeed
-			* cub3d->player.dir[0];
-		*test_y = cub3d->player.position[1] - cub3d->player.movespeed
-			* cub3d->player.dir[1];
-		if (check_area(*test_x, *test_y, cub3d) == 0)
+		new_x -= cub3d->player.movespeed * cub3d->player.dir[0];
+		new_y -= cub3d->player.movespeed * cub3d->player.dir[1];
+	}
+	if (keycode == 13 || keycode == 1)
+	{
+		if (check_area((int)new_x, (int)new_y, cub3d) == 0)
 		{
-			cub3d->player.position[0] = *test_x;
-			cub3d->player.position[1] = *test_y;
+			cub3d->player.position[0] = new_x;
+			cub3d->player.position[1] = new_y;
 		}
 	}
 	return (0);
