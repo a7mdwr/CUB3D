@@ -6,7 +6,7 @@
 /*   By: aradwan <aradwan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 17:05:08 by zsid-ele          #+#    #+#             */
-/*   Updated: 2025/11/29 11:02:33 by aradwan          ###   ########.fr       */
+/*   Updated: 2025/11/29 12:24:43 by aradwan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	key_release(int keycode, t_cub3d *cub3d)
 	(void)keycode;
 	return (0);
 }
+
 
 int	game_loop(void *param)
 {

@@ -2,16 +2,14 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   configur_mlx.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+        
-	+:+     */
-/*   By: zsid-ele <zsid-ele@student.42.fr>          +#+  +:+      
-	+#+        */
-/*                                                +#+#+#+#+#+  
-	+#+           */
-/*   Created: 2025/11/29 09:32:10 by zsid-ele          #+#    #+#             */
-/*   Updated: 2025/11/29 09:32:10 by zsid-ele         ###   ########.fr       */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aradwan <aradwan@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/29 12:39:18 by aradwan           #+#    #+#             */
+/*   Updated: 2025/11/29 12:39:18 by aradwan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../include/cub3d.h"
 
@@ -35,9 +33,9 @@ void	config_mlx(t_cub3d *cub3d)
 	(void)cub3d;
 	while (cub3d->map[y])
 		y++;
-	cub3d->mlx.size_y = 1024;
+	cub3d->mlx.size_y = 768;
 	x = ft_strlen(cub3d->map[0]);
-	cub3d->mlx.size_x = 1024;
+	cub3d->mlx.size_x = 768;
 }
 
 void	load_texture(t_cub3d *cub3d, int id, char *path)

@@ -12,6 +12,7 @@
 
 #include "../include/cub3d.h"
 
+
 int	check_inside_circle(t_cub3d *cub3d, t_circle_check *cc)
 {
 	if (squr(cc->dx) + squr(cc->dy) <= squr(RADIUS))
@@ -123,9 +124,5 @@ int	keys_pressed(int keycode, void *param)
 	cub3d->player.dir[1] = -sin(cub3d->player.angle);
 	move_vertical(cub3d, &test_x, &test_y, keycode);
 	move_horizontal(cub3d, &test_x, &test_y, keycode);
-	if (cub3d->player.angle < 0)
-		cub3d->player.angle += 2 * M_PI;
-	if (cub3d->player.angle > 2 * M_PI)
-		cub3d->player.angle -= 2 * M_PI;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: aradwan <aradwan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 14:32:44 by aradwan           #+#    #+#             */
-/*   Updated: 2025/11/29 11:00:17 by aradwan          ###   ########.fr       */
+/*   Updated: 2025/11/29 12:16:02 by aradwan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,6 +216,8 @@ void	main_execution(t_cub3d *cub3d);
 void	config_player(t_cub3d *cub3d, t_player *player);
 double	cast_ray(t_cub3d *cub3d, double ray_angle);
 double	cast_ray_side(t_cub3d *cub3d, double ray_angle);
+int	move_horizontal(t_cub3d *cub3d, int *test_x, int *test_y, int keycode);
+int	move_vertical(t_cub3d *cub3d, int *test_x, int *test_y, int keycode);
 // main reneder function
 void	render_scene(t_cub3d *cub3d);
 int		game_loop(void *param);

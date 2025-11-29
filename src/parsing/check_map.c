@@ -14,7 +14,7 @@
 
 void	flood_fill(char **map, int x, int y, int *valid)
 {
-	if (y < 0 || x < 0 || !map[y] || !map[y][x] || map[y][x] == ' ')
+	if (y < 0 || x < 0 || !map[y] || !map[y][x])
 	{
 		*valid = 0;
 		return ;

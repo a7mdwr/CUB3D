@@ -106,7 +106,7 @@ static char	*read_identifiers(t_cub3d *cub3d)
 	}
 	if (found < 6)
 		ft_error("Missing one or more identifiers \
-			 (NO, SO, WE, EA, F, C)", 68, cub3d);
+(NO, SO, WE, EA, F, C)", 68, cub3d);
 	return (line);
 }
 
