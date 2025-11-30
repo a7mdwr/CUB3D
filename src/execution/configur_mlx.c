@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../include/cub3d.h"
 
 void	img_pixel_put(t_img *img, int x, int y, int color)
@@ -33,14 +32,14 @@ void	config_mlx(t_cub3d *cub3d)
 	(void)cub3d;
 	while (cub3d->map[y])
 		y++;
-	cub3d->mlx.size_y = 768;
+	cub3d->mlx.size_y = 1024;
 	x = ft_strlen(cub3d->map[0]);
-	cub3d->mlx.size_x = 768;
+	cub3d->mlx.size_x = 1024;
 }
 
 void	load_texture(t_cub3d *cub3d, int id, char *path)
 {
-	cub3d->textures[id].img = mlx_png_file_to_image(cub3d->mlx.mlx, path,
+	cub3d->textures[id].img = mlx_xpm_file_to_image(cub3d->mlx.mlx, path,
 			&cub3d->textures[id].width, &cub3d->textures[id].height);
 	if (!cub3d->textures[id].img)
 	{

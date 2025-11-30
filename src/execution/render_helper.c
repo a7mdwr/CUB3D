@@ -6,12 +6,11 @@
 /*   By: aradwan <aradwan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 10:45:47 by aradwan           #+#    #+#             */
-/*   Updated: 2025/11/29 15:10:40 by aradwan          ###   ########.fr       */
+/*   Updated: 2025/11/30 14:16:53 by aradwan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
- 
 
 void	cast_ray_helper(t_cast_elements *cast_elements)
 {

@@ -14,14 +14,14 @@
 
 void	init_helper(t_cub3d *cub3d, t_player *player, int i, int j)
 {
-	player->movespeed = 6;
+	player->movespeed = 1;
 	player->c = cub3d->map[i][j];
 	cub3d->map[i][j] = '0';
 	cub3d->player.position[0] = cub3d->player.position[0] * SQUARE_SIZE
 		- SQUARE_SIZE / 2;
 	cub3d->player.position[1] = cub3d->player.position[1] * SQUARE_SIZE
 		- SQUARE_SIZE / 2;
-	cub3d->player.rotation_speed = 0.1;
+	cub3d->player.rotation_speed = 0.070;
 	cub3d->player.angle = atan2(-player->dir[1], player->dir[0]);
 	return ;
 }

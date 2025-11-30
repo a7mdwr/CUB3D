@@ -1,14 +1,14 @@
-NO texture/1.png
-SO       ./texture/2.png
+NO texture/1.xpm
+SO       ./texture/2.xpm
 
-WE         ./texture/3.png
+WE         ./texture/3.xpm
 
 
-EA          ./texture/4.png
+EA          ./texture/4.xpm
 
 F 30,30,30
 
-C 0,255,20
+C 0,0,20
 
 
 

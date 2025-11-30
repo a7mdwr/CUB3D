@@ -6,7 +6,7 @@
 /*   By: aradwan <aradwan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 10:56:49 by aradwan           #+#    #+#             */
-/*   Updated: 2025/11/29 10:59:28 by aradwan          ###   ########.fr       */
+/*   Updated: 2025/11/30 14:00:49 by aradwan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ void	init_ver(t_cub3d *cub3d)
 int	main(int arg, char **argv)
 {
 	t_cub3d	cub3d;
-
+	
+	ft_bzero(&cub3d, sizeof(t_cub3d));
 	init_ver(&cub3d);
 	if (arg == 2)
 	{

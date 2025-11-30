@@ -81,7 +81,7 @@ int	ends_with_xpm(const char *str)
 	len = ft_strlen(str);
 	if (len < 4)
 		return (0);
-	return (ft_strcmp(str + len - 4, ".png") == 0);
+	return (ft_strcmp(str + len - 4, ".xpm") == 0);
 }
 
 void	check_names(t_cub3d *cub3d)
@@ -89,6 +89,6 @@ void	check_names(t_cub3d *cub3d)
 	if (!ends_with_xpm(cub3d->no) || !ends_with_xpm(cub3d->so)
 		|| !ends_with_xpm(cub3d->we) || !ends_with_xpm(cub3d->ea))
 	{
-		ft_error("Texture path must end with .png", 65, cub3d);
+		ft_error("Texture path must end with .xpm", 65, cub3d);
 	}
 }

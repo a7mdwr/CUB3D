@@ -15,6 +15,27 @@
 
 #include "../include/cub3d.h"
 
+static void	render_walls(t_cub3d *cub3d, t_rendered_elements *re)
+{
+	int	y;
+	int	color;
+	int	tex_y;
+
+	re->step = (double)cub3d->textures[re->tex_id].height
+		/ (double)re->line_height;
+	re->tex_pos = (re->draw_start - cub3d->mlx.size_y / 2 + re->line_height / 2)
+		* re->step;
+	y = re->draw_start;
+	while (y < re->draw_end)
+	{
+		tex_y = (int)re->tex_pos;
+		re->tex_pos += re->step;
+		color = get_tex_pixel(&cub3d->textures[re->tex_id], re->tex_x, tex_y);
+		img_pixel_put(&cub3d->img, re->x, y, color);
+		y++;
+	}
+}
+
 void	render_image(t_cub3d *cub3d, t_rendered_elements *re)
 {
 	while (re->y < re->draw_start)
@@ -24,16 +45,7 @@ void	render_image(t_cub3d *cub3d, t_rendered_elements *re)
 		img_pixel_put(&cub3d->img, re->x, re->y, re->color);
 		re->y++;
 	}
-	while (re->y < re->draw_end)
-	{
-		re->d = (re->y - re->draw_start);
-		re->tex_y = ((re->d * cub3d->textures[re->tex_id].height)
-				/ re->line_height);
-		re->color = get_tex_pixel(&cub3d->textures[re->tex_id], re->tex_x,
-				re->tex_y);
-		img_pixel_put(&cub3d->img, re->x, re->y, re->color);
-		re->y++;
-	}
+	render_walls(cub3d, re);
 	re->y = re->draw_end;
 	while (re->y < cub3d->mlx.size_y - 1)
 	{
@@ -43,6 +55,7 @@ void	render_image(t_cub3d *cub3d, t_rendered_elements *re)
 		re->y++;
 	}
 }
+
 void	decide_wall(t_rendered_elements *re)
 {
 	if (re->side == 0 && re->ray_dir_x > 0)
@@ -60,6 +73,7 @@ void	decide_wall(t_rendered_elements *re)
 		re->wall_x = 1 - re->wall_x;
 	}
 }
+
 void	decide_scene(t_cub3d *cub3d, t_rendered_elements *re)
 {
 	if (re->draw_start < 0)
@@ -78,9 +92,11 @@ void	decide_scene(t_cub3d *cub3d, t_rendered_elements *re)
 	re->tex_x = (int)(re->wall_x * cub3d->textures[re->tex_id].width);
 	re->y = 0;
 }
+
 void	render_scene(t_cub3d *cub3d)
 {
-	t_rendered_elements re;
+	t_rendered_elements	re;
+
 	re.x = 0;
 	ft_memset(cub3d->img.addr, 0, cub3d->img.line_length * cub3d->img.height);
 	while (re.x < cub3d->mlx.size_x)

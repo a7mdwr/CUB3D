@@ -1,0 +1,16 @@
+/* XPM */
+static char *stone_micro_xpm[] = {
+"8 8 4 1",
+"a c #020047",
+"b c #05006c",
+"c c #1500fb",
+"d c #0c00ae",
+"abcdcbaa",
+"bcadcbab",
+"cadbcabc",
+"dbcabcad",
+"cabcdcac",
+"bcdcacbb",
+"cdabcabc",
+"abcdcbaa"
+};
